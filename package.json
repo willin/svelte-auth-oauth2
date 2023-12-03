@@ -1,6 +1,6 @@
 {
   "name": "@svelte-dev/auth-oauth2",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "homepage": "https://github.com/willin/svelte-auth-oauth2#readme",
