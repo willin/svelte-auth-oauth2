@@ -2,9 +2,13 @@
 	"name": "@svelte-dev/auth-oauth2",
 	"version": "0.0.3",
 	"description": "A OAuth2Strategy for @svelte-dev/auth",
-	"main": "./build/index.js",
-	"svelte": "./build/index.js",
-	"module": "./build/index.js",
+	"exports": {
+		".": {
+			"types": "./build/index.d.ts",
+			"import": "./build/index.js"
+		},
+		"./package.json": "./package.json"
+	},
 	"types": "./build/index.d.ts",
 	"homepage": "https://github.com/willin/svelte-auth-oauth2#readme",
 	"repository": {
