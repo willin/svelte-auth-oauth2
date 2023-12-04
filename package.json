@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-dev/auth-oauth2",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "A OAuth2Strategy for @svelte-dev/auth",
 	"exports": {
 		".": {
