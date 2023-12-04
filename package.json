@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-dev/auth-oauth2",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "A OAuth2Strategy for @svelte-dev/auth",
 	"main": "./build/index.js",
 	"types": "./build/index.d.ts",
