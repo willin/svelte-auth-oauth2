@@ -1,7 +1,8 @@
 import createDebug from 'debug';
 import {
 	AuthorizationError,
-	type AuthenticateOptions,
+	type AuthOptions,
+	type SessionStorage,
 	Strategy,
 	type StrategyVerifyCallback
 } from '@svelte-dev/auth';
@@ -133,14 +134,13 @@ export class OAuth2Strategy<
 		this.useBasicAuthenticationHeader = options.useBasicAuthenticationHeader ?? false;
 	}
 
-	async authenticate(event: RequestEvent, options: AuthenticateOptions): Promise<User> {
-		const { request, cookies } = event;
+	async authenticate(event: RequestEvent, options: AuthOptions): Promise<User | void> {
+		const { request } = event;
+		const session = (event.locals as any).session as SessionStorage;
 		debug('Request URL', request.url);
 		let url = new URL(request.url);
 
-		let user: User | null = cookies.get(options.sessionKey)
-			? JSON.parse(cookies.get(options.sessionKey)!)
-			: null;
+		let user = session.get('user') as User;
 
 		// User is already authenticated
 		if (user) {
@@ -157,7 +157,7 @@ export class OAuth2Strategy<
 			debug('Redirecting to callback URL');
 			let state = this.generateState();
 			debug('State', state);
-			cookies.set(this.sessionStateKey, state);
+			await session.set('state', state);
 			throw redirect(307, this.getAuthorizationURL(request, state).toString());
 		}
 
@@ -174,7 +174,7 @@ export class OAuth2Strategy<
 			);
 		}
 
-		let stateSession = cookies.get(this.sessionStateKey);
+		let stateSession = session.get('state');
 		debug('State from session', stateSession);
 		if (!stateSession) {
 			return await this.failure(
@@ -187,7 +187,7 @@ export class OAuth2Strategy<
 
 		if (stateSession === stateUrl) {
 			debug('State is valid');
-			cookies.delete(this.sessionStateKey);
+			await session.unset('state');
 		} else {
 			return await this.failure(
 				"State doesn't match.",

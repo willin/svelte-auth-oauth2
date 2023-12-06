@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-dev/auth-oauth2",
-	"version": "0.0.3",
+	"version": "0.0.5",
 	"description": "A OAuth2Strategy for @svelte-dev/auth",
 	"exports": {
 		".": {
@@ -43,7 +43,7 @@
 		"@svelte-dev/auth": "latest"
 	},
 	"devDependencies": {
-		"@svelte-dev/auth": "^0.0.2",
+		"@svelte-dev/auth": "^0.0.5",
 		"@sveltejs/kit": "^1.27.4",
 		"@types/debug": "^4.1.12",
 		"eslint": "^8.28.0",
