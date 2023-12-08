@@ -134,13 +134,14 @@ export class OAuth2Strategy<
 		this.useBasicAuthenticationHeader = options.useBasicAuthenticationHeader ?? false;
 	}
 
+	// @ts-ignore
 	async authenticate(event: RequestEvent, options: AuthOptions): Promise<User | void> {
 		const { request } = event;
 		const session = (event.locals as any).session as SessionStorage;
 		debug('Request URL', request.url);
 		let url = new URL(request.url);
 
-		let user = session.get('user') as User;
+		let user = (session.get(options.sessionKey ?? 'user') || (event.locals as any).user) as User;
 
 		// User is already authenticated
 		if (user) {
